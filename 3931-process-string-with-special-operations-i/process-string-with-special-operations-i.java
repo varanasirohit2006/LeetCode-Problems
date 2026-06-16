@@ -1,36 +1,22 @@
 class Solution {
     public String processStr(String s) {
-        ArrayList<Character> res = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if(ch >= 'a' && ch <= 'z'){
-                res.add(ch);
-                continue;
-            }
+        StringBuilder str = new StringBuilder();
 
-            if (ch == '%') {
-                if (res.size() > 0) {
-                    Collections.reverse(res);
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            if(ch == '#'){
+                str.append(str.toString());
+            }else if(ch == '%'){
+                str.reverse();
+            }else if(ch == '*'){
+                if(str.length() > 0){
+                    str.deleteCharAt(str.length() - 1);
                 }
-                continue;
-            } 
-            if (ch == '#') {
-                int ArraySize = res.size();
-                for (int j = 0; j < ArraySize; j++) {
-                    res.add(res.get(j));
-                }
-                continue;
-            } 
-             if (ch == '*') {
-                if (res.size() >= 1) {
-                    res.remove(res.size() - 1);
-                }
-            } 
+            }else{
+                str.append(ch);
+            }
         }
-         StringBuilder sb = new StringBuilder();
-        for(int i=0;i<res.size();i++){
-            sb.append(res.get(i));
-        }
-        return sb.toString();
+        return str.toString();
+
     }
 }
